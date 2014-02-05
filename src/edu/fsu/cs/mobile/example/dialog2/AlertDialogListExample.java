@@ -1,18 +1,14 @@
 package edu.fsu.cs.mobile.example.dialog2;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.AlertDialog.Builder;
-import android.app.Dialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 public class AlertDialogListExample extends Activity {
 
-	String[] countries = new String[]{"Netherlands", "USA", "St. Martin", "Curacao"};
+	final String DIALOG_TAG = "MyListDialogFragment";
+	String[] countries = new String[]{ "Netherlands", "USA", "St. Martin", "Curacao", "Jamaica" };
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -23,30 +19,11 @@ public class AlertDialogListExample extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-
-				showDialog(0);
-				
+				MyListDialogFragment alertListFragment = MyListDialogFragment.newInstance("Exit", 
+						countries);
+				alertListFragment.show(getFragmentManager(), DIALOG_TAG);
 			}
 		});
         
-    }
-    
-    public Dialog onCreateDialog(int id) {
-    	
-    	Builder builder = new AlertDialog.Builder(this);
-    	builder.setTitle("Select a Country");
-    	
-    	builder.setItems(countries, new DialogInterface.OnClickListener() {
-			
-			@Override
-			public void onClick(DialogInterface dialog, int index) {
-				
-				Toast.makeText(getApplicationContext(), 
-						"You selected " + countries[index], Toast.LENGTH_LONG).show();
-				
-			}
-		});
-    	
-    	return builder.create();
     }
 }
